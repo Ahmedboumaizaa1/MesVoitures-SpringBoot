@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ahmed.voitures.entities.voiture;
 import com.ahmed.voitures.service.VoitureService;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin("*")
 public class VoitureRESTController {
 
 	@Autowired
@@ -52,5 +52,9 @@ public class VoitureRESTController {
 	@GetMapping("/voitype/{idType}")
 	public List<voiture> getVoituresByTypeId(@PathVariable("idType") Long idType) {
 	    return voitureService.findByTypeIdType(idType);
+	}
+	@RequestMapping(value = "/voitByName/{nom}", method = RequestMethod.GET)
+	public List<voiture> findByNomVoitureContains(@PathVariable("nom") String nom) {
+		return voitureService.findByNomVoitureContains(nom);
 	}
 }
